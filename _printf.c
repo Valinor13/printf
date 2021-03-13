@@ -13,19 +13,25 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == 'c')
+			if (*format == '%')
+			{
+				_putchar('%');
+				count++;
+			}
+
+			else if (*format == 'c')
 			{
 				_putchar(va_arg(args, int));
 				count++;
 			}
 
-			if (*format == 's')
+			else if (*format == 's')
 			{
 				ptr = va_arg(args, char *);
 				_puts(ptr);
 			}
 
-			if (*format == 'd' || *format == 'i')
+			else if (*format == 'd' || *format == 'i')
 			{
 				i = va_arg(args, int);
 				print_number(i);
