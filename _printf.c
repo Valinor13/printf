@@ -4,7 +4,23 @@ int _printf(const char *format, ...)
 {
 	int i, count = 0;
 	va_list args;
-	char *ptr;
+
+	spec_t specSelect[] = {
+		{"%", printPerc},
+		{"c", printc},
+		{"s", prints},
+		{"d", printd},
+		{"i", printi},
+		{"b", printb},
+		{"u", printu},
+		{"o", printo},
+		{"x", printx},
+		{"X", printX},
+		{"S", printS},
+		{"p", printp},
+		{"r", printr},
+		{NULL, NULL}
+	};
 
 	va_start(args, format);
 
@@ -13,43 +29,26 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == '%')
+			i = 0;
+			while (specSelect[i].spec != NULL)
 			{
-				_putchar('%');
-				count++;
+				if (*format == specSelect[i].spec[0])
+				{
+					count = specSelect[i].specFunc(args, count);
+					format++;
+					break;
+				}
+
+				i++;
 			}
 
-			else if (*format == 'c')
-			{
-				_putchar(va_arg(args, int));
-				count++;
-			}
-
-			else if (*format == 's')
-			{
-				ptr = va_arg(args, char *);
-				_puts(ptr);
-			}
-
-			else if (*format == 'd' || *format == 'i')
-			{
-				i = va_arg(args, int);
-				print_number(i);
-			}
-
-			else
-				_puts("Invalid specifier");
+			if (specSelect[i].spec == NULL)
+				count = count + _puts("Invalid specifier", count);
 		}
-
-		else
-		{
-			_putchar(*format);
-			count++;
-		}
-
+		_putchar(*format);
+		count++;
 		format++;
 	}
-
 	va_end(args);
 
 return (count);
