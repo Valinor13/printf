@@ -44,7 +44,7 @@ int prints(va_list s, int count)
 	char *ss;
 
 	ss = va_arg(s, char *);
-	count = count + _puts(ss, count);
+	count = _puts(ss, count);
 	return (count);
 }
 
@@ -60,7 +60,7 @@ int printd(va_list d, int count)
 	int x;
 
 	x = va_arg(d, int);
-	count = count + print_number(x, count);
+	count = print_number(x, count);
 	return (count);
 }
 
@@ -76,6 +76,6 @@ int printi(va_list i, int count)
 	int x;
 
 	x = va_arg(i, int);
-	count = count + print_number(x, count);
+	count = print_number(x, count);
 	return (count);
 }

@@ -59,7 +59,7 @@ int _printf(const char *format, ...)
 			}
 
 			if (specSelect[i].spec == NULL)
-				count = count + _puts("Invalid specifier", count);
+				count = _puts("Invalid specifier", count);
 		}
 		/** Print the string if no format specifier */
 		_putchar(*format);
