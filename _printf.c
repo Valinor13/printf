@@ -1,10 +1,20 @@
 #include "holberton.h"
 
+/**
+* _printf - Write output to standard output based on input format
+* @format: String to be printed, may include alternative format specifiers
+*
+* Return: Total number of characters printed
+*/
+
 int _printf(const char *format, ...)
 {
 	int i, count = 0;
 	va_list args;
 
+	/** Array of structures, format specifiers and corresponding pointer functions 
+	*	that call relevant conversions and print desired string to standard input
+	*/
 	spec_t specSelect[] = {
 		{"%", printPerc},
 		{"c", printc},
@@ -24,16 +34,21 @@ int _printf(const char *format, ...)
 
 	va_start(args, format);
 
+	/** NULL check for format pointer and contents of string literal */
 	while (format && *format)
 	{
+		/** Check for format specifier */
 		if (*format == '%')
 		{
+			/** Advance pointer through input string *************************/
 			format++;
 			i = 0;
+			/** Scan array for function pointer which corresponds to format specifier */
 			while (specSelect[i].spec != NULL)
 			{
 				if (*format == specSelect[i].spec[0])
 				{
+					/** count passed as an argument and set to value increased by the number of characters */
 					count = specSelect[i].specFunc(args, count);
 					format++;
 					break;
@@ -45,6 +60,7 @@ int _printf(const char *format, ...)
 			if (specSelect[i].spec == NULL)
 				count = count + _puts("Invalid specifier", count);
 		}
+		/** Print the string if no format specifier */
 		_putchar(*format);
 		count++;
 		format++;
