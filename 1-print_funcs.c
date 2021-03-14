@@ -1,5 +1,12 @@
 #include "holberton.h"
 
+/**
+* printPerc - Print the % character to standard output
+* @perc: **************************************
+* @count: existing total number of characters printed
+*
+* Return: cumulative total number of characters printed
+*/
 int printPerc(va_list perc, int count)
 {
 	va_arg(perc, int);
@@ -8,6 +15,13 @@ int printPerc(va_list perc, int count)
 	return (count);
 }
 
+/**
+* printc - Print ASCII character to standard output
+* @c: pointer to argument of type integer, (ASCII val)
+* @count: existing total number of characters printed
+*
+* Return: cumulative total number of characters printed
+*/
 int printc(va_list c, int count)
 {
 	char cc;
@@ -18,6 +32,13 @@ int printc(va_list c, int count)
 	return (count);
 }
 
+/**
+* prints - Print string literal to standard output
+* @s: pointer to argument of type string literal
+* @count: existing total number of characters printed
+*
+* Return: cumulative total number of characters printed
+*/
 int prints(va_list s, int count)
 {
 	char *ss;
@@ -27,6 +48,13 @@ int prints(va_list s, int count)
 	return (count);
 }
 
+/**
+* printd - Print to standard output
+* @d: pointer to argument of type integer
+* @count: existing total number of characters printed
+*
+* Return: cumulative total number of characters printed
+*/
 int printd(va_list d, int count)
 {
 	int x;
@@ -36,6 +64,13 @@ int printd(va_list d, int count)
 	return (count);
 }
 
+/**
+* printi - Print integer to standard output
+* @i: pointer to argument of type integer
+* @count: existing total number of characters printed
+*
+* Return: cumulative total number of characters printed
+*/
 int printi(va_list i, int count)
 {
 	int x;

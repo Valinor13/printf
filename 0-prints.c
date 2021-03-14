@@ -9,35 +9,37 @@
  */
 int _putchar(char c)
 {
-        return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
 
 /**
  * _puts - prints all chars in a string
  * @str: input string
+ * @count: existing number of characters printed
  *
- * Return: returns void
+ * Return: cumulative number of characters printed
  */
 int _puts(char *str, int count)
 {
-        int i;
+	int i;
 
-        if (str == NULL)
-                return (count);
+	if (str == NULL)
+		return (count);
 
-        for (i = 0; str[i] != '\0'; i++)
-        {
-                _putchar(str[i]);
-                count++;
-        }
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		_putchar(str[i]);
+		count++;
+	}
 return (count);
 }
 
 /**
  * print_number - prints an int
  * @n: input integer
+ * @count: existing number of characters printed
  *
- * Return: returns void
+ * Return: cumulative number of characters printed
  */
 int print_number(int n, int count)
 {
