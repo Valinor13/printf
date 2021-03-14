@@ -12,7 +12,8 @@ int _printf(const char *format, ...)
 	int i, count = 0;
 	va_list args;
 
-	/** Array of structures, format specifiers and corresponding pointer functions 
+	/**
+	* Array of structures, format specifiers and corresponding pointer functions
 	*	that call relevant conversions and print desired string to standard input
 	*/
 	spec_t specSelect[] = {
@@ -48,7 +49,7 @@ int _printf(const char *format, ...)
 			{
 				if (*format == specSelect[i].spec[0])
 				{
-					/** count passed as an argument and set to value increased by the number of characters */
+					/** count increased by the number of new characters printed */
 					count = specSelect[i].specFunc(args, count);
 					format++;
 					break;
