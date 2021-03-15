@@ -66,4 +66,7 @@ int _puts(char *str, int count);
 /** Variadic function to print any format data to standard output */
 int _printf(const char *format, ...);
 
+/** Recursive put function to process unsigned integers */
+int print_un_number(unsigned int n, int count);
+
 #endif

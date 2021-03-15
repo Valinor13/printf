@@ -17,24 +17,10 @@ int _printf(const char *format, ...)
 	*	that call relevant conversions and print desired string to standard input
 	*/
 	spec_t specSelect[] = {
-		{"%", printPerc},
-		{"c", printc},
-		{"s", prints},
-		{"d", printd},
-		{"i", printi},
-		{"b", printb},
-		{"u", printu},
-		{"o", printo},
-		{"x", printx},
-		{"X", printX},
-		{"S", printS},
-		{"p", printp},
-		{"r", printr},
-		{NULL, NULL}
-	};
-
+		{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printd}, {"i", printi},
+		{"b", printb}, {"u", printu}, {"o", printo}, {"x", printx}, {"X", printX},
+		{"S", printS}, {"p", printp}, {"r", printr}, {NULL, NULL}};
 	va_start(args, format);
-
 	/** NULL check for format pointer and contents of string literal */
 	while (format && *format)
 	{
@@ -43,23 +29,16 @@ int _printf(const char *format, ...)
 		{
 			/** Advance pointer through input string *************************/
 			format++;
-			i = 0;
 			/** Scan array for function pointer which corresponds to format specifier */
-			while (specSelect[i].spec != NULL)
+			for (i = 0; specSelect[i].spec != NULL; i++)
 			{
 				if (*format == specSelect[i].spec[0])
 				{
 					/** count increased by the number of new characters printed */
 					count = specSelect[i].specFunc(args, count);
 					format++;
-					break;
 				}
-
-				i++;
 			}
-
-			if (specSelect[i].spec == NULL)
-				count = _puts("Invalid specifier", count);
 		}
 		/** Print the string if no format specifier */
 		_putchar(*format);
@@ -67,6 +46,5 @@ int _printf(const char *format, ...)
 		format++;
 	}
 	va_end(args);
-
 return (count);
 }

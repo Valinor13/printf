@@ -71,3 +71,29 @@ int print_number(int n, int count)
 	count++;
 return (count);
 }
+/**
+ * print_un_number - prints unsigned int
+ * @n: input integer
+ * @count: existing number of characters printed
+ *
+ * Return: cumulative number of characters printed
+ */
+int print_un_number(unsigned int n, int count)
+{
+        char c = '0';
+
+	if (n / 10 != 0)
+	{
+		print_un_number(n / 10, count);
+	}
+
+	_putchar(n % 10 + c);
+	count++;
+return (count);
+}
+
+
+
+
+
+
