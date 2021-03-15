@@ -114,3 +114,41 @@ char *printint(va_list d)
 	tmp[x] = '\0';
 	return (tmp);
 }
+
+/**
+* printu - store an unsigned integer as an array in memory                                                                   * @u: pointer to argument of type unsigned integer
+*
+* Return: pointer to an array in memory
+*/
+char *printu_alt(unsigned int u)
+{                                                                                                                                    char *tmp;
+        unsigned int n, num;
+        int i, rem, len;
+/** iterator, last digit, initial integer, copy of initial integer, length of input */
+
+        n = u;
+        num = n;
+        len = 0;
+
+        while (n != 0)  /** Integer length */
+        {
+                len++;
+                n /= 10;
+        }
+        if (num = 0) /** Zero case */
+        {
+                tmp = malloc(2);
+                tmp[0] = '0';
+        }
+        else /** Positive case */
+        {
+                tmp = malloc(len + 1);
+        }
+        for (i = 0; i < len; i++)
+        {
+                rem = num % 10; /** Isolate last digt */
+                num /= 10; /** Shorten integer */
+                tmp[len - (i + 1)] = (rem + '0'); /** Fill, right to left */
+        }
+        tmp[len] = '\0';                                                                                                             return (tmp);
+}

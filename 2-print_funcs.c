@@ -1,76 +1,168 @@
 #include "holberton.h"
 
 /**
-* printb - Convert unsigned int to binary, output result to standard output
+* printb - Convert unsigned int to binary, store in an array in memory
 * @b: pointer to argument of type unsigned integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to an array in memory
 */
-int printb(va_list b, int count)
+char *printb(va_list b)
 {
-	(void)b;
-	/** Convert va_args(b, int) into binary */
-	printf("printb");
-	print_number(count, count);
-	return (count);
+	unsigned int n, cvt;
+	int i, rem, j, y;
+	char *bi_tmp,*outbuff;
+
+	n = va_arg(b, unsigned int);
+	i = y =  0;
+	
+	bi_tmp = malloc(33);
+        outbuff = malloc (33);
+        if (bi_tmp == NULL || outbuff == NULL)
+        {
+                return (NULL);
+        }
+
+        while (n != 0)
+        {
+                rem = n % 2;
+		bi_tmp[i] = rem;
+		n /= 2;
+		i++;
+        }
+        for (j = i - 1; j >= 0; j--, y++)
+        {
+                outbuff[y] = bi_tmp[j];
+        }
+        outbuff[i] = '\0';
+        free(bi_tmp);
+	/** Storing in an array because all 1s exceeds unsigned int max */
+	return (outbuff);
 }
 
 /**
-* printu - output an unsigned integer to standard output
+* printu - Store an unsigned integer as an array in memory
 * @u: pointer to argument of type unsigned integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to an array in memory
 */
-int printu(va_list u, int count)
+char *printu(va_list u)
 {
-	count = print_un_number(va_arg(u, unsigned int), count);
-	return (count);
+        return (printu_alt(va_arg(u, unsigned int)));
 }
 
 /**
-* printo - output an unsigned integer to standard output
+* printo - Convert unsigned integer argument to octal, store in array in memory
 * @o: pointer to argument of type unsigned integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to an array in memory
 */
-int printo(va_list o, int count)
+char *printo(va_list o)
 {
-	(void)o;
-	(void)count;
-	printf("printo");
-	return (count);
+	unsigned int un, oct;
+	int i; 
+
+	oct = 0;
+	i = 1;
+	un = va_arg(o, unsigned int);
+	/** Convert unsigned integer argument into octal number */
+	while (un != 0)
+	{
+		oct += (un % 8) * i;
+		un /= 8;
+		i *= 10;
+	}
+	/** Pass unsigned octal into printualt and return the char * into primary */
+	return (printu_alt(oct));
 }
 
 /**
-* printx - output an unsigned integer to standard output
+* printx - Convert an unsigned integer to hexadecimal (lower),
+*	store in an array in memory
 * @x: pointer to argument of type unsigned integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to an array in memory
 */
-int printx(va_list x, int count)
+char *printx(va_list x)
 {
-	(void)x;
-	(void)count;
-	printf("printx");
-	return (count);
+	char *hexa_tmp, outbuff;
+	int i, rem, j, y;
+	unsigned int u;
+
+	u = va_arg(x, unsigned int);
+	i = y = 0;
+	hexa_tmp = malloc(9);
+	outbuff = malloc (9);
+
+	if (hexa_tmp == NULL || outbuff == NULL)
+	{
+		return (NULL);
+	}
+	while (u != 0)
+	{
+		rem = u % 16;
+		if (rem < 10)
+		{
+			hexa_tmp[i] = rem + 48;
+			i++;
+		}
+		else
+		{
+			hexa_tmp[i] = temp + 87;
+			i++;
+		}
+		n /= 16;
+	}
+	for (j = i - 1; j >= 0; j--, y++)
+	{
+		outbuff[y] = hexa_tmp[j];
+	}
+	outbuff[i] = '\0';
+	free(hexa_tmp);
+	return (outbuff);
 }
 
 /**
-* printX - output an unsigned integer to standard output
+* printX - Convert an unsigned integer to hexadecimal (upper), store in
+*	an array in memory
 * @X: pointer to argument of type unsigned integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to an array in memory
 */
-int printX(va_list X, int count)
+char *printX(va_list X)
 {
-	(void)X;
-	(void)count;
-	printf("printX");
-	return (count);
+	char *hexa_tmp, outbuff;
+	int i, rem, j, y;
+	unsigned int u;
+
+	u = va_arg(X, unsigned int);
+	i = y = 0;
+	hexa_tmp = malloc(9);
+	outbuff = malloc (9);
+	if (hexa_tmp == NULL || outbuff == NULL)
+	{
+		return (NULL);
+	}
+	while (u != 0)
+	{
+		rem = u % 16;
+		if (rem < 10)
+		{
+			hexa_tmp[i] = rem + 48;
+			i++;
+                }
+		else
+		{
+			hexa_tmp[i] = temp + 55;
+			i++;
+		}
+		n /= 16;
+	}
+	for (j = i - 1; j >= 0; j--, y++)
+	{
+	outbuff[y] = hexa_tmp[j];
+	}
+	outbuff[i] = '\0';
+	free(hexa_tmp);
+	return (outbuff);
 }
 
