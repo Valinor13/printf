@@ -49,33 +49,36 @@ int prints(va_list s, int count)
 }
 
 /**
-* printd - Print to standard output
+* printint - Conveting integer data to a string
 * @d: pointer to argument of type integer
-* @count: existing total number of characters printed
 *
-* Return: cumulative total number of characters printed
+* Return: pointer to string
 */
-int printd(va_list d, int count)
+char *printint(va_list d)
 {
-	int x;
-
-	x = va_arg(d, int);
-	count = print_number(x, count);
-	return (count);
+	char *tmp;
+	int i, rem, n, num, len;
+	
+	n = va_arg(d, int);
+	num = n;
+	len = 0;
+        
+	while (n != 0)
+	{
+		len++;
+		n /= 10;
+	}
+	tmp = malloc(len + 1);
+	for (i = 0; i < len; i++)
+	{
+		rem = num % 10;
+		num /= 10;
+		tmp[len - (i + 1)] = (rem + '0');
+	}
+	tmp[len] = '/0';
+	return (tmp);
 }
 
-/**
-* printi - Print integer to standard output
-* @i: pointer to argument of type integer
-* @count: existing total number of characters printed
-*
-* Return: cumulative total number of characters printed
-*/
-int printi(va_list i, int count)
-{
-	int x;
 
-	x = va_arg(i, int);
-	count = print_number(x, count);
-	return (count);
-}
+
+

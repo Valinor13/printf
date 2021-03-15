@@ -10,7 +10,7 @@
 int printb(va_list b, int count)
 {
 	(void)b;
-
+	/** Convert va_args(b, int) into binary */
 	printf("printb");
 	print_number(count, count);
 	return (count);

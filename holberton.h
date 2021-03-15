@@ -19,39 +19,38 @@
 typedef struct specPrint
 {
 	char *spec;
-	int (*specFunc)(va_list, int);
+	char *(*specFunc)(va_list);
 } spec_t;
 
 /** Edge case put function for double percent sign input */
-int printPerc(va_list perc, int count);
+char *printPerc(va_list perc);
 
 /** Put function, process character input */
-int printc(va_list c, int count);
+char *printc(va_list c);
 
 /** Put function, process string input */
-int prints(va_list s, int count);
+char *prints(va_list s);
 
 /** Put functions (2), process integer input */
-int printd(va_list d, int count);
-int printi(va_list i, int count);
+char *printint(va_list d);
 
 /** Put function for unsigned int input, unsigned int to binary conversion */
-int printb(va_list b, int count);
+char *printb(va_list b);
 
 /** Put functions (4), process unsigned integer input */
-int printu(va_list u, int count);
-int printo(va_list o, int count);
-int printx(va_list x, int count);
-int printX(va_list X, int count);
+char *printu(va_list u);
+char *printo(va_list o);
+char *printx(va_list x);
+char *printX(va_list X);
 
 /** Put function, process string input, allow for non-printable characters */
-int printS(va_list S, int count);
+char *printS(va_list S);
 
 /** Put function, process pointer input */
-int printp(va_list p, int count);
+char *printp(va_list p);
 
 /** Put function, process string input, in reverse*/
-int printr(va_list r, int count);
+char *printr(va_list r);
 
 /** Standard Library putchar emulator, write character to standard output */
 int _putchar(char c);
@@ -68,5 +67,8 @@ int _printf(const char *format, ...);
 
 /** Recursive put function to process unsigned integers */
 int print_un_number(unsigned int n, int count);
+
+/** Select put function based on format specifier, sort through spec_t array */
+char *(*scan_array(char *format))(va_list);
 
 #endif
