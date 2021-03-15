@@ -10,31 +10,31 @@ char *printb(va_list b)
 {
 	unsigned int n, cvt;
 	int i, rem, j, y;
-	char *bi_tmp,*outbuff;
+	char *bi_tmp, *outbuff;
 
 	n = va_arg(b, unsigned int);
 	i = y =  0;
-	
-	bi_tmp = malloc(33);
-        outbuff = malloc (33);
-        if (bi_tmp == NULL || outbuff == NULL)
-        {
-                return (NULL);
-        }
 
-        while (n != 0)
-        {
-                rem = n % 2;
+	bi_tmp = malloc(33);
+	outbuff = malloc(33);
+	if (bi_tmp == NULL || outbuff == NULL)
+	{
+		return (NULL);
+	}
+
+	while (n != 0)
+	{
+		rem = n % 2;
 		bi_tmp[i] = rem;
 		n /= 2;
 		i++;
-        }
-        for (j = i - 1; j >= 0; j--, y++)
-        {
-                outbuff[y] = bi_tmp[j];
-        }
-        outbuff[i] = '\0';
-        free(bi_tmp);
+	}
+	for (j = i - 1; j >= 0; j--, y++)
+	{
+		outbuff[y] = bi_tmp[j];
+	}
+	outbuff[i] = '\0';
+	free(bi_tmp);
 	/** Storing in an array because all 1s exceeds unsigned int max */
 	return (outbuff);
 }
@@ -47,7 +47,7 @@ char *printb(va_list b)
 */
 char *printu(va_list u)
 {
-        return (printu_alt(va_arg(u, unsigned int)));
+	return (printu_alt(va_arg(u, unsigned int)));
 }
 
 /**
@@ -59,7 +59,7 @@ char *printu(va_list u)
 char *printo(va_list o)
 {
 	unsigned int un, oct;
-	int i; 
+	int i;
 
 	oct = 0;
 	i = 1;
@@ -91,7 +91,7 @@ char *printx(va_list x)
 	u = va_arg(x, unsigned int);
 	i = y = 0;
 	hexa_tmp = malloc(9);
-	outbuff = malloc (9);
+	outbuff = malloc(9);
 
 	if (hexa_tmp == NULL || outbuff == NULL)
 	{
@@ -137,7 +137,7 @@ char *printX(va_list X)
 	u = va_arg(X, unsigned int);
 	i = y = 0;
 	hexa_tmp = malloc(9);
-	outbuff = malloc (9);
+	outbuff = malloc(9);
 	if (hexa_tmp == NULL || outbuff == NULL)
 	{
 		return (NULL);
@@ -149,7 +149,7 @@ char *printX(va_list X)
 		{
 			hexa_tmp[i] = rem + 48;
 			i++;
-                }
+		}
 		else
 		{
 			hexa_tmp[i] = temp + 55;

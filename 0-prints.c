@@ -80,7 +80,7 @@ return (count);
  */
 int print_un_number(unsigned int n, int count)
 {
-        char c = '0';
+	char c = '0';
 
 	if (n / 10 != 0)
 	{

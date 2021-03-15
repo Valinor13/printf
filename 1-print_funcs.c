@@ -10,6 +10,7 @@ char *printPerc(va_list perc)
 {
 	char *str;
 	(void) perc;
+
 	str = malloc(2);
 	if (str == NULL)
 	{
@@ -30,6 +31,7 @@ char *printc(va_list c)
 {
 	char *str;
 	char chr;
+
 	chr = va_arg(c, int);
 	str = malloc(2);
 	if (str == NULL)
@@ -51,6 +53,7 @@ char *prints(va_list s)
 {
 	char *str, *tmpstr;
 	int n;
+
 	tmpstr = va_arg(s, char *);
 	str = malloc(_strlen(tmpstr) + 1);
 	if  (str == NULL)
@@ -60,7 +63,7 @@ char *prints(va_list s)
 
 	for (n = 0; n <= _strlen(tmpstr); n++)
 	{
-		str[n] = tmpstr[n];	
+		str[n] = tmpstr[n];
 	}
 
 	return (str);
@@ -76,12 +79,14 @@ char *printint(va_list d)
 {
 	char *tmp;
 	int i, rem, n, num, len, x;
-/** iterator, last digit, initial integer, copy of initial integer, length of input, length for negatives */	
+/*
+ * iterator, last digit, initial integer, copy of initial integer,
+ * length of input, length for negatives
+ */
 
 	n = va_arg(d, int);
 	num = n;
-	len = 0;
-	i = 0;
+	len = i = 0;
 
 	while (n != 0)	/** Integer length */
 	{
@@ -89,7 +94,7 @@ char *printint(va_list d)
 		n /= 10;
 	}
 	x = len;
-	if (num = 0) /** Zero case */
+	if (num == 0) /** Zero case */
 	{
 		tmp = malloc(2);
 		tmp[0] = '0';
@@ -102,9 +107,8 @@ char *printint(va_list d)
 		num *= -1;
 	}
 	else /** Positive case */
-	{
 		tmp = malloc(len + 1);
-	}
+
 	for (; i < len; i++)
 	{
 		rem = num % 10; /** Isolate last digt */
@@ -116,39 +120,42 @@ char *printint(va_list d)
 }
 
 /**
-* printu - store an unsigned integer as an array in memory                                                                   * @u: pointer to argument of type unsigned integer
-*
-* Return: pointer to an array in memory
-*/
+ * printu_alt - store an unsigned integer as an array in memory
+ * @u: pointer to argument of type unsigned integer
+ *
+ * Return: pointer to an array in memory
+ */
 char *printu_alt(unsigned int u)
-{                                                                                                                                    char *tmp;
-        unsigned int n, num;
-        int i, rem, len;
-/** iterator, last digit, initial integer, copy of initial integer, length of input */
+{
+	char *tmp;
+	unsigned int n, num;
+	int i, rem, len;
+/** iterator, last digit, initial int, initial integer copy, input length */
 
-        n = u;
-        num = n;
-        len = 0;
+	n = u;
+	num = n;
+	len = 0;
 
-        while (n != 0)  /** Integer length */
-        {
-                len++;
-                n /= 10;
-        }
-        if (num = 0) /** Zero case */
-        {
-                tmp = malloc(2);
-                tmp[0] = '0';
-        }
-        else /** Positive case */
-        {
-                tmp = malloc(len + 1);
-        }
-        for (i = 0; i < len; i++)
-        {
-                rem = num % 10; /** Isolate last digt */
-                num /= 10; /** Shorten integer */
-                tmp[len - (i + 1)] = (rem + '0'); /** Fill, right to left */
-        }
-        tmp[len] = '\0';                                                                                                             return (tmp);
+	while (n != 0)  /** Integer length */
+	{
+		len++;
+		n /= 10;
+	}
+	if (num == 0) /** Zero case */
+	{
+		tmp = malloc(2);
+		tmp[0] = '0';
+	}
+	else /** Positive case */
+	{
+		tmp = malloc(len + 1);
+	}
+	for (i = 0; i < len; i++)
+	{
+		rem = num % 10; /** Isolate last digt */
+		num /= 10; /** Shorten integer */
+		tmp[len - (i + 1)] = (rem + '0'); /** Fill, right to left */
+	}
+	tmp[len] = '\0';
+return (tmp);
 }

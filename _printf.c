@@ -1,15 +1,14 @@
 #include "holberton.h"
 
 /**
-* _printf - Write output to standard output based on input format
-* @format: String to be printed, may include alternative format specifiers
-*
-* Return: Total number of characters printed
-*/
-
+ * _printf - Write output to standard output based on input format
+ * @format: String to be printed, may include alternative format specifiers
+ *
+ * Return: Total number of characters printed
+ */
 int _printf(const char *format, ...)
 {
-	int x, flowchk; count;
+	int x, flowchk, count;
 	int *f;
 	va_list data_list;
 	char *tmp_buf, BUFF;
@@ -27,8 +26,8 @@ int _printf(const char *format, ...)
 		if (*format == '%') /** Check for format specifier */
 		{
 			format++;
-			tmp_buf = (scan_array(format))(data_list); /** Filling the temporary buffer */
-/**
+			tmp_buf = (scan_array(format))(data_list); /*Fill tmp*/
+/*
 * FLAG CODE
 */
 		/** Strcpy the returned char * into BUFF, write to stdout */
@@ -44,51 +43,61 @@ int _printf(const char *format, ...)
 		BUFF[flowchk] = *format; /** Pass input string to primary buffer */
 		count++, flowchk++, format++;
 	}
-	write (1, BUFF, flowchk);
+	write(1, BUFF, flowchk);
 	free(BUFF);
 	va_end(args);
 	return (count);
 }
 
+/**
+ * flowchecky - function that writes and resets buff when full
+ * @f: pointer to flowcheck variable address
+ * @BUFF: input buff at max size
+ * Return: returns buff reset
+ */
 char *flowchecky(int *f, char *BUFF)
 {
-		write (1, BUFF, *f);
+		write(1, BUFF, *f);
 		*f = 0;
 		free(BUFF);
 		BUFF = malloc(1024);
 		return (BUFF);
 }
 
-
+/**
+ * scan_array - function that selects the corresponding function pointer
+ * @format: input string looking for specifier
+ * Return: returns function pointer
+ */
 char *(*scan_array(char *format))(va_list)
 {
 	unsigned int i;
 
-	/**
+	/*
 	* Array of structures, format specifiers and corresponding pointer functions
-	*       that call relevant conversions and print desired string to standard input
+	* that call relevant conversions and print desired string to standard input
 	*/
 	spec_t specSelect[] = {
-		{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint}, {"i", printint},
-		{"b", printb}, {"u", printu}, {"o", printo}, {"x", printx}, {"X", printX},
- 		{"S", printS}, {"p", printp}, {"r", printr}, {NULL, NULL}};
-		
-		while (*format != 32 && *format + 1 != 32) /**ASCII 32 == " " */
+	{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint},
+	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
+	{"X", printX}, {"S", printS}, {"p", printp}, {"r", printr}, {NULL, NULL}};
+
+	while (*format != 32 && *format + 1 != 32) /**ASCII 32 == " " */
+	{
+	/** Scan array for function pointer which corresponds to format specifier */
+		for (i = 0; specSelect[i].spec != NULL; i++)
 		{
-		/** Scan array for function pointer which corresponds to format specifier */
-			for (i = 0; specSelect[i].spec != NULL; i++)
+			if (*format == specSelect[i].spec[0])
 			{
-				if (*format == specSelect[i].spec[0])
+				while (*format != '%')
 				{
-					while (*format != '%')
-					{
-						format--;
-					}
-					return (specSelect[i].specFunc);
+					format--;
 				}
+				return (specSelect[i].specFunc);
 			}
-			format++
 		}
-		if (*format == 32 && *format + 1 == 32) /** Empty input, no specifier */
-			return (errorFunc);
+		format++
+	}
+	if (*format == 32 && *format + 1 == 32) /** Empty input, no specifier */
+		return (errorFunc);
 }
