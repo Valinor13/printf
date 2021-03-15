@@ -25,6 +25,9 @@ typedef struct specPrint
 /** Edge case put function for double percent sign input */
 char *printPerc(va_list perc);
 
+/** Error case */
+char *errorFunc(va_list double_space);
+
 /** Put function, process character input */
 char *printc(va_list c);
 
@@ -69,6 +72,14 @@ int _printf(const char *format, ...);
 int print_un_number(unsigned int n, int count);
 
 /** Select put function based on format specifier, sort through spec_t array */
-char *(*scan_array(char *format))(va_list);
+char *(*scan_array(const char *format))(va_list);
 
+/** Storing digits of an unsigned int in an array */
+char *printu_alt(unsigned int u);
+
+/** Buffer overflow protection function */
+char *flowchecky(int *f, char *BUFF);
+
+/** Find the length of a string */
+int _strlen(char *s);
 #endif

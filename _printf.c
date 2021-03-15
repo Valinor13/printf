@@ -11,7 +11,7 @@ int _printf(const char *format, ...)
 	int x, flowchk, count;
 	int *f;
 	va_list data_list;
-	char *tmp_buf, BUFF;
+	char *tmp_buf, *BUFF;
 
 	va_start(data_list, format);
 	count = 0; /** Total number of characters writter */
@@ -26,12 +26,13 @@ int _printf(const char *format, ...)
 		if (*format == '%') /** Check for format specifier */
 		{
 			format++;
-			tmp_buf = (scan_array(format))(data_list); /*Fill tmp*/
+			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
+			format++;
 /*
 * FLAG CODE
 */
 		/** Strcpy the returned char * into BUFF, write to stdout */
-			for (x = 0, x < _strlen(tmp_buf); x++, count++, flowchk++)
+			for (x = 0; x < _strlen(tmp_buf); x++, count++, flowchk++)
 			{
 				if (flowchk == 1024) /** Buffer empty */
 					BUFF = flowchecky(f, BUFF);
@@ -45,7 +46,7 @@ int _printf(const char *format, ...)
 	}
 	write(1, BUFF, flowchk);
 	free(BUFF);
-	va_end(args);
+	va_end(data_list);
 	return (count);
 }
 
@@ -69,7 +70,7 @@ char *flowchecky(int *f, char *BUFF)
  * @format: input string looking for specifier
  * Return: returns function pointer
  */
-char *(*scan_array(char *format))(va_list)
+char *(*scan_array(const char *format))(va_list)
 {
 	unsigned int i;
 
@@ -80,7 +81,7 @@ char *(*scan_array(char *format))(va_list)
 	spec_t specSelect[] = {
 	{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint},
 	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
-	{"X", printX}, {"S", printS}, {"p", printp}, {"r", printr}, {NULL, NULL}};
+	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
 
 	while (*format != 32 && *format + 1 != 32) /**ASCII 32 == " " */
 	{
@@ -96,8 +97,10 @@ char *(*scan_array(char *format))(va_list)
 				return (specSelect[i].specFunc);
 			}
 		}
-		format++
+		format++;
 	}
 	if (*format == 32 && *format + 1 == 32) /** Empty input, no specifier */
 		return (errorFunc);
+
+	return (errorFunc);
 }

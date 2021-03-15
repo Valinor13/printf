@@ -101,7 +101,7 @@ char *printint(va_list d)
 	}
 	else if (num < 0) /** Negative case */
 	{
-		x++ /** Account for dash indicator */
+		x++; /** Account for dash indicator */
 		tmp = malloc(len + 2); /** Dash indicator and null byte */
 		tmp[0] = '-';
 		num *= -1;

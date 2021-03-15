@@ -8,7 +8,7 @@
 */
 char *printb(va_list b)
 {
-	unsigned int n, cvt;
+	unsigned int n;
 	int i, rem, j, y;
 	char *bi_tmp, *outbuff;
 
@@ -84,7 +84,7 @@ char *printo(va_list o)
 */
 char *printx(va_list x)
 {
-	char *hexa_tmp, outbuff;
+	char *hexa_tmp, *outbuff;
 	int i, rem, j, y;
 	unsigned int u;
 
@@ -107,10 +107,10 @@ char *printx(va_list x)
 		}
 		else
 		{
-			hexa_tmp[i] = temp + 87;
+			hexa_tmp[i] = rem + 87;
 			i++;
 		}
-		n /= 16;
+		u /= 16;
 	}
 	for (j = i - 1; j >= 0; j--, y++)
 	{
@@ -130,7 +130,7 @@ char *printx(va_list x)
 */
 char *printX(va_list X)
 {
-	char *hexa_tmp, outbuff;
+	char *hexa_tmp, *outbuff;
 	int i, rem, j, y;
 	unsigned int u;
 
@@ -152,10 +152,10 @@ char *printX(va_list X)
 		}
 		else
 		{
-			hexa_tmp[i] = temp + 55;
+			hexa_tmp[i] = rem + 55;
 			i++;
 		}
-		n /= 16;
+		u /= 16;
 	}
 	for (j = i - 1; j >= 0; j--, y++)
 	{

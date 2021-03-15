@@ -13,87 +13,45 @@ int _putchar(char c)
 }
 
 /**
- * _puts - prints all chars in a string
- * @str: input string
- * @count: existing number of characters printed
- *
- * Return: cumulative number of characters printed
- */
-int _puts(char *str, int count)
+* _strlen - find the length of a string of characters
+* @s: a string of characters in an array
+*
+* Return: the number of characters in input string (minus null val), as integer
+*/
+
+int _strlen(char *s)
 {
-	int i;
+	int x;
 
-	if (str == NULL)
-		return (count);
+	x = 0;
 
-	for (i = 0; str[i] != '\0'; i++)
+	while (*s != '\0')
 	{
-		_putchar(str[i]);
-		count++;
+		s++;
+		x++;
 	}
-return (count);
+
+return (x);
 }
 
 /**
- * print_number - prints an int
- * @n: input integer
- * @count: existing number of characters printed
- *
- * Return: cumulative number of characters printed
- */
-int print_number(int n, int count)
+* errorFunc - Error statement in case of invalid '%' use
+* @double_space: no associated variadic argument, void in function
+*
+* Return: Error statement
+*/
+
+char *errorFunc(va_list double_space)
 {
-	char c = '0';
+	char *error;
 
-	if (n < 0)
-	{
-		if (n % 10 == 0)
-		{
-			_putchar('-');
-			n = (n * -1);
-		}
+	(void) double_space;
 
-		else
-		{
-			_putchar('-');
-			n++;
-			c = '1';
-			n = (n * -1);
-		}
-	}
+	error = malloc(3);
 
-	if (n / 10 != 0)
-	{
-		print_number(n / 10, count);
-	}
+	error[0] = '0';
+	error[1] = '0';
+	error[2] = '\0';
 
-	_putchar(n % 10 + c);
-	count++;
-return (count);
+	return (error);
 }
-/**
- * print_un_number - prints unsigned int
- * @n: input integer
- * @count: existing number of characters printed
- *
- * Return: cumulative number of characters printed
- */
-int print_un_number(unsigned int n, int count)
-{
-	char c = '0';
-
-	if (n / 10 != 0)
-	{
-		print_un_number(n / 10, count);
-	}
-
-	_putchar(n % 10 + c);
-	count++;
-return (count);
-}
-
-
-
-
-
-
