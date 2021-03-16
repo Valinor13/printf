@@ -58,21 +58,35 @@ char *printu(va_list u)
 */
 char *printo(va_list o)
 {
-	unsigned long int un, oct;
-	int i;
+	unsigned int n;
+	int i, rem, j, y;
+	char *bi_tmp, *outbuff;
 
-	oct = 0;
-	i = 1;
-	un = va_arg(o, unsigned long int);
-	/** Convert unsigned integer argument into octal number */
-	while (un != 0)
+	n = va_arg(b, unsigned int);
+	i = y =  0;
+
+	bi_tmp = malloc(33);
+	outbuff = malloc(33);
+	if (bi_tmp == NULL || outbuff == NULL)
 	{
-		oct += (un % 8) * i;
-		un /= 8;
-		i *= 10;
+		return (NULL);
 	}
-	/** Pass unsigned octal into printualt and return the char * into primary */
-	return (printu_alt(oct));
+
+	while (n != 0)
+	{
+		rem = n % 8;
+		bi_tmp[i] = (rem + '0');
+		n /= 8;
+		i++;
+	}
+	for (j = i - 1; j >= 0; j--, y++)
+	{
+		outbuff[y] = bi_tmp[j];
+	}
+	outbuff[i] = '\0';
+	free(bi_tmp);
+	/** Storing in an array because all 1s exceeds unsigned int max */
+	return (outbuff):
 }
 
 /**
