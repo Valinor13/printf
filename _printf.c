@@ -13,31 +13,34 @@ int _printf(const char *format, ...)
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
-	va_start(data_list, format);
 	count = 0; /** Total number of characters writter */
 	flowchk = 0; /** Buffer overflow prevention measure */
 	f = &flowchk;
 
-	BUFF = malloc(1024);
+	if (format == NULL || *format == 00) /* NULL check, pointer and string */
+		return (-1);
 
-	/** NULL check for format pointer and contents of string literal */
-	while (format && *format)
+	va_start(data_list, format);
+	BUFF = malloc(1024);
+	if (BUFF == NULL)
+		return (-1);
+
+	while (*format != '\0')
 	{
 		if (*format == '%') /** Check for format specifier */
 		{
 			format++;
+			if (*format == '\0')
+				return (-1);
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
-			format++;
-/*
-* FLAG CODE
-*/
-		/** Strcpy the returned char * into BUFF, write to stdout */
+			format++; /* FLAG CODE */
 			for (x = 0; x < _strlen(tmp_buf); x++, count++, flowchk++)
 			{
 				if (flowchk == 1024) /** Buffer empty */
 					BUFF = flowchecky(f, BUFF);
 				BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
 			}
+			free(tmp_buf);
 		}
 		if (flowchk == 1024) /** Buffer empty */
 			BUFF = flowchecky(f, BUFF);
@@ -83,24 +86,22 @@ char *(*scan_array(const char *format))(va_list)
 	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
 	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
 
-	while (*format != 32 && *format + 1 != 32) /**ASCII 32 == " " */
+
+	while (*format != '\0')
 	{
-	/** Scan array for function pointer which corresponds to format specifier */
+		while (*format == 32)
+		{
+			format++;
+		}
+	/* Scan array for function pointer which corresponds to format specifier */
 		for (i = 0; specSelect[i].spec != NULL; i++)
 		{
 			if (*format == specSelect[i].spec[0])
 			{
-				while (*format != '%')
-				{
-					format--;
-				}
 				return (specSelect[i].specFunc);
 			}
 		}
 		format++;
 	}
-	if (*format == 32 && *format + 1 == 32) /** Empty input, no specifier */
-		return (errorFunc);
-
 	return (errorFunc);
 }
