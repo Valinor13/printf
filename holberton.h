@@ -75,7 +75,7 @@ int print_un_number(unsigned int n, int count);
 char *(*scan_array(const char *format))(va_list);
 
 /** Storing digits of an unsigned int in an array */
-char *printu_alt(unsigned int u);
+char *printu_alt(unsigned long int u);
 
 /** Buffer overflow protection function */
 char *flowchecky(int *f, char *BUFF);
@@ -85,4 +85,7 @@ char *_strdup(char *str);
 
 /** Find the length of a string */
 int _strlen(char *s);
+
+/** Duplicate an input string */
+char *_strdup(char *str);
 #endif

@@ -58,27 +58,43 @@ char *printS(va_list S)
 */
 char *printp(va_list p)
 {
-	char *input, *tmp;
-	int i;
+	char *hexa_tmp, *outbuff;
+	int i, rem, j, y;
+	unsigned long int u;
 
-	input = malloc(17);
-	if (input  == NULL)
-		return (NULL);
-	tmp = va_arg(p, void *);
+	u = va_arg(p, unsigned long int);
+	i = 2;
+	y = 2;
+	hexa_tmp = malloc(sizeof(char) * 16);
+	outbuff = malloc(sizeof(char) * 16);
 
-	for (i = 0; i < 17; i++)
+	if (hexa_tmp == NULL || outbuff == NULL)
 	{
-		input[i] = tmp[i];
+		return (NULL);
 	}
-	input[i] = '\0';
-	return (input);
+	while (u != 0)
+	{
+		rem = u % 16;
+		if (rem < 10)
+		{
+			hexa_tmp[i] = rem + 48;
+			i++;
+		}
+		else
+		{
+			hexa_tmp[i] = rem + 87;
+			i++;
+		}
+		u /= 16;
+	}
+	outbuff[0] = '0';
+	outbuff[1] = 'x';
+	for (j = i - 1; j >= 0; j--, y++)
+	{
+		outbuff[y] = hexa_tmp[j];
+	}
+	outbuff[i] = '\0';
+	free(hexa_tmp);
+	return (outbuff);
 }
-
-/**
-* printr - output a string to the standard output
-* @r: pointer to argument of type string literal
-* @count: existing total number of characters printed
-*
-* Return: cumulative total number of characters printed
-*/
 

@@ -17,8 +17,10 @@ int _printf(const char *format, ...)
 	flowchk = 0; /** Buffer overflow prevention measure */
 	f = &flowchk;
 
-	if (format == NULL || *format == 00) /* NULL check, pointer and string */
+	if (format == NULL)
 		return (-1);
+	if (*format == 00) /* NULL check, pointer and string */
+		return (0);
 
 	va_start(data_list, format);
 	BUFF = malloc(1024);
