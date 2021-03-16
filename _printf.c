@@ -9,29 +9,26 @@
 int _printf(const char *format, ...)
 {
 	int x, flowchk, count;
-	int *f;
+	int *f = &flowchk;
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
-	count = 0; /** Total number of characters writter */
-	flowchk = 0; /** Buffer overflow prevention measure */
-	f = &flowchk;
-
+	count = flowchk = 0; /** Buffer overflow prevention measure */
 	if (format == NULL)
 		return (-1);
-	if (*format == 00) /* NULL check, pointer and string */
-		return (0);
-
 	va_start(data_list, format);
+	if (data_list == NULL)
+		return (0);
 	BUFF = malloc(1024);
 	if (BUFF == NULL)
 		return (-1);
-
 	while (*format != '\0')
 	{
 		if (*format == '%') /** Check for format specifier */
 		{
 			format++;
+			while (*format == 32)
+				format++;
 			if (*format == '\0')
 				return (-1);
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
@@ -49,9 +46,7 @@ int _printf(const char *format, ...)
 		BUFF[flowchk] = *format; /** Pass input string to primary buffer */
 		count++, flowchk++, format++;
 	}
-	write(1, BUFF, flowchk);
-	free(BUFF);
-	va_end(data_list);
+	write(1, BUFF, flowchk), free(BUFF), va_end(data_list);
 	return (count);
 }
 
@@ -91,10 +86,6 @@ char *(*scan_array(const char *format))(va_list)
 
 	while (*format != '\0')
 	{
-		while (*format == 32)
-		{
-			format++;
-		}
 	/* Scan array for function pointer which corresponds to format specifier */
 		for (i = 0; specSelect[i].spec != NULL; i++)
 		{
