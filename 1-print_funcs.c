@@ -87,7 +87,6 @@ char *printint(va_list d)
 	n = va_arg(d, int);
 	num = n;
 	len = i = 0;
-
 	while (n != 0)	/** Integer length */
 	{
 		len++;
@@ -110,7 +109,6 @@ char *printint(va_list d)
 	}
 	else /** Positive case */
 		tmp = malloc(len + 1);
-
 	for (; i < len; i++)
 	{
 		rem = num % 10; /** Isolate last digt */

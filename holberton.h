@@ -85,4 +85,7 @@ int _strlen(char *s);
 
 /** Duplicate an input string */
 char *_strdup(char *str);
+
+/** converts into to hex and reverses string */
+char *print_rev(int non);
 #endif

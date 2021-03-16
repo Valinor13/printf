@@ -25,7 +25,7 @@ char *printb(va_list b)
 	while (n != 0)
 	{
 		rem = n % 2;
-		bi_tmp[i] = rem;
+		bi_tmp[i] = (rem + '0');
 		n /= 2;
 		i++;
 	}

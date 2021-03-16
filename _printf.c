@@ -9,24 +9,19 @@
 int _printf(const char *format, ...)
 {
 	int x, flowchk, count;
-	int *f;
+	int *f = &flowchk;
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
-	count = 0; /** Total number of characters writter */
-	flowchk = 0; /** Buffer overflow prevention measure */
-	f = &flowchk;
-
+	count = 0, flowchk = 0;
 	if (format == NULL)
 		return (-1);
 	if (*format == 00) /* NULL check, pointer and string */
 		return (0);
-
 	va_start(data_list, format);
 	BUFF = malloc(1024);
 	if (BUFF == NULL)
 		return (-1);
-
 	while (*format != '\0')
 	{
 		if (*format == '%') /** Check for format specifier */
@@ -87,7 +82,6 @@ char *(*scan_array(const char *format))(va_list)
 	{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint},
 	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
 	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
-
 
 	while (*format != '\0')
 	{
