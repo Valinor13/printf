@@ -80,6 +80,9 @@ char *printu_alt(unsigned int u);
 /** Buffer overflow protection function */
 char *flowchecky(int *f, char *BUFF);
 
+/** Duplicate a string in new memory */
+char *_strdup(char *str);
+
 /** Find the length of a string */
 int _strlen(char *s);
 #endif
