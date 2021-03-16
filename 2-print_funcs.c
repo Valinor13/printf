@@ -86,7 +86,7 @@ char *printo(va_list o)
 	outbuff[i] = '\0';
 	free(bi_tmp);
 	/** Storing in an array because all 1s exceeds unsigned int max */
-	return (outbuff);
+	return (outbuff):
 }
 
 /**
