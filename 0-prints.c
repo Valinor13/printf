@@ -25,9 +25,8 @@ int _strlen(char *s)
 
 	x = 0;
 
-	while (*s != '\0')
+	while (s[x] != '\0')
 	{
-		s++;
 		x++;
 	}
 
@@ -43,17 +42,9 @@ return (x);
 
 char *errorFunc(va_list double_space)
 {
-	char *error;
-
 	(void) double_space;
 
-	error = malloc(3);
-
-	error[0] = '0';
-	error[1] = '0';
-	error[2] = '\0';
-
-	return (error);
+	return (NULL);
 }
 
 char *print_rev(int non)

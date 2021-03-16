@@ -1,5 +1,4 @@
 #include "holberton.h"
-
 /**
  * _printf - Write output to standard output based on input format
  * @format: String to be printed, may include alternative format specifiers
@@ -32,8 +31,7 @@ int _printf(const char *format, ...)
 			if (*format == '\0')
 				return (-1);
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
-			format++; /* FLAG CODE */
-			for (x = 0; x < _strlen(tmp_buf); x++, count++, flowchk++)
+			for (x = 0; tmp_buf[x] != '\0'; x++, count++, flowchk++)
 			{
 				if (flowchk == 1024) /** Buffer empty */
 					BUFF = flowchecky(f, BUFF);
@@ -84,17 +82,14 @@ char *(*scan_array(const char *format))(va_list)
 	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
 
 
-	while (*format != '\0')
-	{
 	/* Scan array for function pointer which corresponds to format specifier */
-		for (i = 0; specSelect[i].spec != NULL; i++)
+	for (i = 0; specSelect[i].spec != NULL; i++)
+	{
+		if (*format == specSelect[i].spec[0])
 		{
-			if (*format == specSelect[i].spec[0])
-			{
-				return (specSelect[i].specFunc);
-			}
+			format++;
+			return (specSelect[i].specFunc);
 		}
-		format++;
 	}
 	return (errorFunc);
 }
