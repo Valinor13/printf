@@ -98,6 +98,8 @@ char *printint(va_list d)
 	{
 		tmp = malloc(2);
 		tmp[0] = '0';
+		tmp[1] = '\0';
+		return (tmp);
 	}
 	else if (num < 0) /** Negative case */
 	{
@@ -125,10 +127,10 @@ char *printint(va_list d)
  *
  * Return: pointer to an array in memory
  */
-char *printu_alt(unsigned int u)
+char *printu_alt(unsigned long int u)
 {
 	char *tmp;
-	unsigned int n, num;
+	unsigned long int n, num;
 	int i, rem, len;
 /** iterator, last digit, initial int, initial integer copy, input length */
 
@@ -145,6 +147,8 @@ char *printu_alt(unsigned int u)
 	{
 		tmp = malloc(2);
 		tmp[0] = '0';
+		tmp[1] = 00;
+		return (tmp);
 	}
 	else /** Positive case */
 	{
