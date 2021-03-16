@@ -25,7 +25,7 @@ char *printb(va_list b)
 	while (n != 0)
 	{
 		rem = n % 2;
-		bi_tmp[i] = rem;
+		bi_tmp[i] = (rem + '0');
 		n /= 2;
 		i++;
 	}
@@ -47,7 +47,7 @@ char *printb(va_list b)
 */
 char *printu(va_list u)
 {
-	return (printu_alt(va_arg(u, unsigned int)));
+	return (printu_alt(va_arg(u, unsigned long int)));
 }
 
 /**
@@ -58,12 +58,12 @@ char *printu(va_list u)
 */
 char *printo(va_list o)
 {
-	unsigned int un, oct;
+	unsigned long int un, oct;
 	int i;
 
 	oct = 0;
 	i = 1;
-	un = va_arg(o, unsigned int);
+	un = va_arg(o, unsigned long int);
 	/** Convert unsigned integer argument into octal number */
 	while (un != 0)
 	{
@@ -90,8 +90,8 @@ char *printx(va_list x)
 
 	u = va_arg(x, unsigned int);
 	i = y = 0;
-	hexa_tmp = malloc(9);
-	outbuff = malloc(9);
+	hexa_tmp = malloc(sizeof(char) * 64);
+	outbuff = malloc(sizeof(char) * 64);
 
 	if (hexa_tmp == NULL || outbuff == NULL)
 	{

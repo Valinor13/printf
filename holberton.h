@@ -66,7 +66,7 @@ int _puts(char *str, int count);
 
 /** Standard Library printf emulator */
 /** Variadic function to print any format data to standard output */
-int _printf(const char *format, ...);
+int _printf(char const *format, ...);
 
 /** Recursive put function to process unsigned integers */
 int print_un_number(unsigned int n, int count);
@@ -75,11 +75,20 @@ int print_un_number(unsigned int n, int count);
 char *(*scan_array(const char *format))(va_list);
 
 /** Storing digits of an unsigned int in an array */
-char *printu_alt(unsigned int u);
+char *printu_alt(unsigned long int u);
 
 /** Buffer overflow protection function */
 char *flowchecky(int *f, char *BUFF);
 
+/** Duplicate a string in new memory */
+char *_strdup(char *str);
+
 /** Find the length of a string */
 int _strlen(char *s);
+
+/** Convert the hexadecimal ID of a non-printable character. Pair with printS */
+char *print_rev(int non);
+
+/** Duplicate an input string */
+char *_strdup(char *str);
 #endif
