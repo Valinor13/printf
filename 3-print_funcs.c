@@ -8,11 +8,11 @@
 */
 char *printS(va_list S)
 {
-	char *str, *tmpstr;
-	int i, j, rem, non;
+	char *str, *tmpstr, *hex_str;
+	int i, j, k, non;
 
 	tmpstr = va_arg(S, char *);
-	i = j = 0;
+	i = j = k = 0;
 	str = malloc((_strlen(tmpstr) * 4) + 1);
 	if (str == NULL)
 		return (NULL);
@@ -28,23 +28,18 @@ char *printS(va_list S)
 			str[i] = '\\', i++;
 			str[i] = 'x', i++;
 			non = tmpstr[j];
-		if (non < 16)
-		{
-			str[i] = '0', i++;
-		}
-		while (non != 0)
-		{
-		rem = non % 16;
-		if (rem < 10)
-		{
-			str[i] = rem + 48, i++;
-		}
-		else
-			str[i] = rem + 55, i++;
-
-		non /= 16;
-		}
-		j++;
+			if (non < 16)
+			{
+				str[i] = '0', i++;
+			}
+			hex_str = print_rev(non);
+			for (k = 0; hex_str[k] != '\0'; k++)
+			{
+				str[i] = hex_str[k];
+				i++;
+			}
+			j++;
+			free(hex_str);
 		}
 	}
 	return (str);
