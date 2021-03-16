@@ -55,3 +55,47 @@ char *errorFunc(va_list double_space)
 
 	return (error);
 }
+
+char *print_rev(int non)
+{
+	int i, j = 0, rem = 0, len;
+	char *tmp, *nu_str;
+
+	if (non < 16)
+		len = 1;
+	else
+		len = 2;
+	if (non < 16)
+	{
+		nu_str = malloc(sizeof(char) * 2);
+		tmp = malloc(sizeof(char) * 2);
+		while (non != 0)
+		{
+			rem = non % 16;
+			if (rem < 10)
+				tmp[j] = rem + 48, j++;
+			else
+				tmp[j] = rem + 55, j++;
+			non /= 16;
+		}
+	}
+	else
+	{
+		nu_str = malloc(sizeof(char) * 3);
+		tmp = malloc(sizeof(char) * 3);
+		while (non != 0)
+		{
+			rem = non % 16;
+			if (rem < 10)
+				tmp[j] = rem + 48, j++;
+			else
+				tmp[j] = rem + 55, j++;
+			non /= 16;
+		}
+	}
+	for (j = 0, i = len - 1; i >= 0; i--, j++)
+		nu_str[j] = tmp[i];
+	nu_str[len] = 00;
+	free(tmp);
+return (nu_str);
+}
