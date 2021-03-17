@@ -86,7 +86,7 @@ char *_strdup(char *str);
 /** Find the length of a string */
 int _strlen(char *s);
 
-/** Convert the hexadecimal ID of a non-printable character. Pair with printS */
+/** Convert the hexadecimal ID of a non-printable char. Pair with printS */
 char *print_rev(int non);
 
 /** Duplicate an input string */

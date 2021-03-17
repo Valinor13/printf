@@ -28,7 +28,7 @@ int _printf(const char *format, ...)
 		{
 			format++;
 			while (*format == 32)
-				format++; /* Move through any spaces after % */ 
+				format++; /* Move through any spaces after % */
 			if (*format == '\0')
 				return (-1);
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
@@ -39,13 +39,12 @@ int _printf(const char *format, ...)
 					BUFF = flowchecky(f, BUFF);
 				BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
 			}
-		
+
 			free(tmp_buf);
 		}
 		if (flowchk == 1024) /* Buffer empty */
 			BUFF = flowchecky(f, BUFF);
-		BUFF[flowchk] = *format; /* Pass input string to primary buffer */
-		count++, flowchk++, format++;
+		BUFF[flowchk] = *format, count++, flowchk++, format++;
 	}
 	write(1, BUFF, flowchk), free(BUFF), va_end(data_list);
 	return (count);

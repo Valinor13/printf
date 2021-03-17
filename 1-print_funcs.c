@@ -53,6 +53,7 @@ char *prints(va_list s)
 {
 	char *str, *tmpstr, *dup;
 	int n;
+
 	dup = "(null)";
 
 	tmpstr = va_arg(s, char *);

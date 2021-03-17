@@ -47,6 +47,11 @@ char *errorFunc(va_list double_space)
 	return (NULL);
 }
 
+/**
+ * print_rev - prints a 2 digit string in reverse
+ * @non: input integer
+ * Return: returns reverse string pointer
+ */
 char *print_rev(int non)
 {
 	int i, j = 0, rem = 0, len;
