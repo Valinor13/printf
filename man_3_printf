@@ -1,0 +1,60 @@
+.TH _PRINTF 1
+.SH NAME
+_printf \- prints variadic arguments according to their format specifier
+.SH SYNOPSIS
+.B _printf
+[\fB\-%\fR \fIFORMAT SPECIFIER\fR]
+[\fB\-\-string\fR \fINPUT\fR]
+.IR file ...
+.SH DESCRIPTION
+.B corrupt
+prints integers, characters, and strings as a string in multiple formats with different specifiers
+.SH OPTIONS
+.TP
+.BR \-% ", " \-\-character =\fI%\fR
+.P
+Print a % charachter.
+.P
+.BR \-c ", " \-\-character =\fICHARACTER\fR
+.P
+Print any ascii character.
+.p
+.BR \-s ", " \-\-string =\fISTRING\fR
+.P
+Print a string.
+.P
+.BR \-d ", " \-\-integer =\fIINTEGER\fR
+.P
+Print an integer.
+.P
+.BR \-i ", " \-\-integer =\fIINTEGER\fR
+.P
+Print an integer.
+.P
+.BR \-b ", " \-\-unsigned integer =\fIBINARY\fR
+.P
+Print an unsigned integer in base 2.
+.P
+.BR \-u ", " \-\-unsigned integer =\fIUNSIGNED INT\fR
+.P
+Print an unsigned integer.
+.P
+.BR \-o ", " \-\-unsigned integer =\fIOCTAL\fR
+.P
+Print an unsigned integer in base 8.
+.P
+.BR \-x ", " \-\-unsigned integer =\fIHEXADECIMAL\fR
+.P
+Print an unsigned integer in lowercase hexadecimal.
+.P
+.BR \-X ", " \-\-unsigned integer =\fIHEXADECIMAL\fR
+.P
+Print an unsigned integer in uppercase hexadecimal.
+.P
+.BR \-S ", " \-\-string =\fSTRINGHEX%\fR
+.P
+Print a string with hexadecimal separators.
+.P
+.BR \-p ", " \-\-address =\fIHEXADECIMAL\fR
+.P
+Print an unsigned integer address in hexadecimal.

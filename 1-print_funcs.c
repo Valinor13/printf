@@ -51,15 +51,14 @@ char *printc(va_list c)
 */
 char *prints(va_list s)
 {
-	char *str, *tmpstr;
+	char *str, *tmpstr, *dup;
 	int n;
+	dup = "(null)";
 
 	tmpstr = va_arg(s, char *);
 	if (tmpstr == NULL)
 	{
-		str = malloc(6);
-		str = "(null)";
-		return (str);
+		return (_strdup(dup));
 	}
 	str = malloc(_strlen(tmpstr) + 1);
 	if  (str == NULL)
