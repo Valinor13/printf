@@ -62,7 +62,7 @@ char *printo(va_list o)
 	int i, rem, j, y;
 	char *bi_tmp, *outbuff;
 
-	n = va_arg(b, unsigned int);
+	n = va_arg(o, unsigned int);
 	i = y =  0;
 
 	bi_tmp = malloc(33);
@@ -86,7 +86,7 @@ char *printo(va_list o)
 	outbuff[i] = '\0';
 	free(bi_tmp);
 	/** Storing in an array because all 1s exceeds unsigned int max */
-	return (outbuff):
+	return (outbuff);
 }
 
 /**

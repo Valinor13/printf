@@ -55,6 +55,12 @@ char *prints(va_list s)
 	int n;
 
 	tmpstr = va_arg(s, char *);
+	if (tmpstr == NULL)
+	{
+		str = malloc(6);
+		str = "(null)";
+		return (str);
+	}
 	str = malloc(_strlen(tmpstr) + 1);
 	if  (str == NULL)
 	{
