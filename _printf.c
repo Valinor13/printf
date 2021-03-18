@@ -8,8 +8,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int x, flowchk, count;
-	int *f = &flowchk;
+	int x, flowchk, count, *f = &flowchk;
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
@@ -30,20 +29,21 @@ int _printf(const char *format, ...)
 			while (*format == 32)
 				format++; /* Move through any spaces after % */
 			if (*format == '\0')
-				return (-1);
+			{
+				BUFF[flowchk] = '%';
+				break;
+			}
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
 			for (x = 0; tmp_buf[x] != '\0' && tmp_buf != NULL; x++, count++, flowchk++)
 			{
-				if (flowchk == 1024) /* Buffer empty */
-					BUFF = flowchecky(f, BUFF);
-			BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
+			flowchecky(f, BUFF), BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
 			}
 			free(tmp_buf);
-			if (*(format + 1) == 00)
+			if (*(format + 1) == '\0')
 				break;
+			format++;
 		}
-		if (flowchk == 1024) /* Buffer empty */
-			BUFF = flowchecky(f, BUFF);
+		flowchecky(f, BUFF);
 		BUFF[flowchk] = *format, count++, flowchk++, format++;
 	}
 	write(1, BUFF, flowchk), free(BUFF), va_end(data_list);
@@ -58,11 +58,18 @@ int _printf(const char *format, ...)
  */
 char *flowchecky(int *f, char *BUFF)
 {
+	if (*f >= 1024)
+	{
 		write(1, BUFF, *f);
 		*f = 0;
 		free(BUFF);
 		BUFF = malloc(1024);
 		return (BUFF);
+	}
+	else
+	{
+		return (BUFF);
+	}
 }
 
 /**
