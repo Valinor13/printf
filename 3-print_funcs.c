@@ -43,6 +43,7 @@ char *printS(va_list S)
 		}
 	}
 	return (str);
+
 }
 
 /**

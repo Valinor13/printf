@@ -32,15 +32,15 @@ int _printf(const char *format, ...)
 			if (*format == '\0')
 				return (-1);
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
-			format++;
 			for (x = 0; tmp_buf[x] != '\0' && tmp_buf != NULL; x++, count++, flowchk++)
 			{
 				if (flowchk == 1024) /* Buffer empty */
 					BUFF = flowchecky(f, BUFF);
-				BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
+			BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
 			}
-
 			free(tmp_buf);
+			if (*(format + 1) == 00)
+				break;
 		}
 		if (flowchk == 1024) /* Buffer empty */
 			BUFF = flowchecky(f, BUFF);
