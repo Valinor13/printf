@@ -29,7 +29,7 @@ char *printPerc(va_list perc)
 */
 char *printc(va_list c)
 {
-	char *str, *nul;
+	char *str;
 	char chr;
 
 	chr = va_arg(c, int);
