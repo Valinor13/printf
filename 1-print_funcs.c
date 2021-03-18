@@ -1,5 +1,4 @@
 #include "holberton.h"
-#include <stdio.h>
 
 /**
 * printPerc - Store the % sign character in an array in memory
@@ -34,7 +33,6 @@ char *printc(va_list c)
 	char chr;
 
 	chr = va_arg(c, int);
-	printf("Argument %c", chr);
 	str = malloc(2);
 	if (str == NULL)
 	{
