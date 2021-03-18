@@ -1,4 +1,5 @@
 #include "holberton.h"
+#include <stdio.h>
 
 /**
 * printPerc - Store the % sign character in an array in memory
@@ -33,6 +34,7 @@ char *printc(va_list c)
 	char chr;
 
 	chr = va_arg(c, int);
+	printf("Argument %c", chr);
 	str = malloc(2);
 	if (str == NULL)
 	{
@@ -84,12 +86,12 @@ char *prints(va_list s)
 char *printint(va_list d)
 {
 	char *tmp;
-	int i, rem, n, num, len, x;
+	unsigned int neg;
+	int i, rem, num, n, len, x;
 /*
  * iterator, last digit, initial integer, copy of initial integer,
  * length of input, length for negatives
  */
-
 	n = va_arg(d, int);
 	num = n;
 	len = i = 0;
@@ -111,14 +113,14 @@ char *printint(va_list d)
 		x++; /** Account for dash indicator */
 		tmp = malloc(len + 2); /** Dash indicator and null byte */
 		tmp[0] = '-';
-		num *= -1;
+		neg = num * -1;
 	}
 	else /** Positive case */
-		tmp = malloc(len + 1);
+		tmp = malloc(len + 1), neg = num;
 	for (; i < len; i++)
 	{
-		rem = num % 10; /** Isolate last digt */
-		num /= 10; /** Shorten integer */
+		rem = neg % 10; /** Isolate last digt */
+		neg /= 10; /** Shorten integer */
 		tmp[x - (i + 1)] = (rem + '0'); /** Fill, right to left */
 	}
 	tmp[x] = '\0';
