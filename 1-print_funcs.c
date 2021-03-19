@@ -33,6 +33,8 @@ char *printc(va_list c)
 	char chr;
 
 	chr = va_arg(c, int);
+	if (chr == 00)
+		return (NULL);
 	str = malloc(2);
 	if (str == NULL)
 	{
@@ -52,7 +54,7 @@ char *printc(va_list c)
 char *prints(va_list s)
 {
 	char *str, *tmpstr, *dup;
-	int n;
+	int n, len;
 
 	dup = "(null)";
 
@@ -61,13 +63,14 @@ char *prints(va_list s)
 	{
 		return (_strdup(dup));
 	}
-	str = malloc(_strlen(tmpstr) + 1);
+	len = _strlen(tmpstr);
+	str = malloc(len + 1);
 	if  (str == NULL)
 	{
 		return (NULL);
 	}
 
-	for (n = 0; n <= _strlen(tmpstr); n++)
+	for (n = 0; n <= len; n++)
 	{
 		str[n] = tmpstr[n];
 	}

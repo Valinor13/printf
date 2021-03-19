@@ -8,19 +8,18 @@
  */
 int _printf(const char *format, ...)
 {
-	int x, flowchk, count, *f = &flowchk;
+	int x, bc = 0, count = 0, *f = &bc;
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
-	count = flowchk = 0; /** Buffer overflow prevention measure */
 	if (format == NULL) /** Is there a string? */
 		return (-1);
 	va_start(data_list, format);
 	if (data_list == NULL) /* Are there arguments */
 		return (0);
 	BUFF = malloc(1024);
-	if (BUFF == NULL) /* Did we successfully create our buffer? */
-		return (-1);
+	if (BUFF == NULL)
+		return (-1);/* Did we successfully create our buffer? */
 	while (*format != '\0')
 	{
 		if (*format == '%' && *(format + 1) != '\0') /* Check for format specifier */
@@ -30,23 +29,45 @@ int _printf(const char *format, ...)
 				format++; /* Move through any spaces after % */
 			if (*format == '\0')
 			{
-				BUFF[flowchk] = '%';
+				BUFF[bc] = '%';
 				break;
 			}
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
-			for (x = 0; tmp_buf[x] != '\0' && tmp_buf != NULL; x++, count++, flowchk++)
+			if (tmp_buf == NULL)
 			{
-			flowchecky(f, BUFF), BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
+				format--;
+				flowchecky(f, BUFF);
+				BUFF[bc] = *(format);
+				bc++, format++, count++;
+				flowchecky(f, BUFF);
+				BUFF[bc] = *(format);
+				bc++, count++;
 			}
-			free(tmp_buf);
-			if (*(format + 1) == '\0')
+			else
+			{
+				for (x = 0; tmp_buf[x] != '\0'; x++, count++, bc++)
+				{
+					flowchecky(f, BUFF);
+					BUFF[bc] = tmp_buf[x]; /** Strcpy */
+				}
+				free(tmp_buf);
+			}
+			if (*(format + 1) == '%')
+			{
+				format++;
+				continue;
+			}
+			else if (*(format + 1) == 00)
 				break;
 			format++;
 		}
 		flowchecky(f, BUFF);
-		BUFF[flowchk] = *format, count++, flowchk++, format++;
+		BUFF[bc] = *format;
+		count++, bc++, format++;
 	}
-	write(1, BUFF, flowchk), free(BUFF), va_end(data_list);
+	write(1, BUFF, bc);
+	free(BUFF);
+	va_end(data_list);
 	return (count);
 }
 
