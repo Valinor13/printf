@@ -32,7 +32,7 @@ char *printS(va_list S)
 			{
 				str[i] = '0', i++;
 			}
-			hex_str = print_rev(non);
+			hex_str = print_rev(non); /* Conversion algorithm in print_rev */
 			for (k = 0; hex_str[k] != '\0'; k++)
 			{
 				str[i] = hex_str[k];
@@ -121,7 +121,7 @@ char *printr(va_list r)
 
 	for (n = 0, i = len - 1; n < len; n++, i--)
 	{
-		str[n] = tmpstr[i];
+		str[n] = tmpstr[i]; /* Printing in reverse, thanks to len-1 */
 	}
 	str[len] = 00;
 

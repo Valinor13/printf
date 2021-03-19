@@ -22,8 +22,10 @@ typedef struct specPrint
 	char *(*specFunc)(va_list);
 } spec_t;
 
+/** Reverse a string, store in tmp_buf */
 char *printr(va_list r);
 
+/** Convert a string to rot-13, store in tmp_buf */
 char *printR(va_list R);
 
 /** Edge case put function for double percent sign input */

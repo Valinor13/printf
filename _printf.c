@@ -27,7 +27,7 @@ int _printf(const char *format, ...)
 			format++;
 			while (*format == 32)
 				format++; /* Move through any spaces after % */
-			if (*format == '\0')
+			if (*format == '\0') /* Avoid seg fault */
 			{
 				BUFF[flowchk] = '%';
 				break;
@@ -35,14 +35,14 @@ int _printf(const char *format, ...)
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
 			if (tmp_buf == NULL)
 			{
-				format--;
+				format--; /* Return to '%' */
 				if (flowchk >= 1024)
 					flowchecky(f, BUFF);
-				BUFF[flowchk] = *(format);
+				BUFF[flowchk] = *(format); /* Prrint '%' */
 				flowchk++, format++, count++;
 				if (flowchk >= 1024)
 					flowchecky(f, BUFF);
-				BUFF[flowchk] = *(format);
+				BUFF[flowchk] = *(format); /* Print invalid specifier */
 				flowchk++, count++;
 			}
 			else
@@ -55,18 +55,18 @@ int _printf(const char *format, ...)
 				}
 				free(tmp_buf);
 			}
-			if (*(format + 1) == '%')
+			if (*(format + 1) == '%' /* Two specifiers in a row */)
 			{
 				format++;
 				continue;
 			}
-			else if (*(format + 1) == 00)
+			else if (*(format + 1) == 00) /* Avoid seg fault */
 				break;
 			format++;
 		}
 		if (flowchk >= 1024)
 			flowchecky(f, BUFF);
-		BUFF[flowchk] = *format;
+		BUFF[flowchk] = *format; /* Printing base string */
 		count++, flowchk++, format++;
 	}
 	write(1, BUFF, flowchk);
