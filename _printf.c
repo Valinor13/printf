@@ -41,7 +41,7 @@ int _printf(const char *format, ...)
 				BUFF[flowchk] = *(format);
 				flowchk++, format++, count++;
 				if (flowchk >= 1024)
-					flowchecky(f, BUFF);	
+					flowchecky(f, BUFF);
 				BUFF[flowchk] = *(format);
 				flowchk++, count++;
 			}
@@ -106,8 +106,8 @@ char *(*scan_array(const char *format))(va_list)
 	spec_t specSelect[] = {
 	{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint},
 	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
-	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
-
+	{"X", printX}, {"S", printS}, {"p", printp},
+	{"r", printr}, {"R", printR}, {NULL, NULL}};
 
 	/* Scan array for function pointer which corresponds to format specifier */
 	for (i = 0; specSelect[i].spec != NULL; i++)

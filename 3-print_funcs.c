@@ -94,3 +94,76 @@ char *printp(va_list p)
 	return (outbuff);
 }
 
+/**
+ * printr - prints a string in reverse
+ * @r: input argument string
+ * Return: returns allocated string in reverse
+ */
+char *printr(va_list r)
+{
+	char *str, *tmpstr, *dup;
+	int n, len, i;
+
+	dup = "(null)";
+
+	tmpstr = va_arg(r, char *);
+	if (tmpstr == NULL)
+	{
+		return (_strdup(dup));
+	}
+	len = _strlen(tmpstr);
+	str = malloc(len + 1);
+	if  (str == NULL)
+	{
+		return (NULL);
+	}
+
+	for (n = 0, i = len - 1; n < len; n++, i--)
+	{
+		str[n] = tmpstr[i];
+	}
+	str[len] = 00;
+
+	return (str);
+}
+
+/**
+ * printR - prints a string in rot13
+ * @R: input string
+ * Return: returns allocated string in Rot13 encryption
+ */
+char *printR(va_list R)
+{
+	int i, x, len;
+	char *j = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char *z = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+	char *rot, *dup, *nurot;
+
+	dup = "(null)";
+	rot = va_arg(R, char *);
+	if (rot == NULL)
+	{
+		return (_strdup(dup));
+	}
+	len = _strlen(rot);
+	nurot = malloc(len + 1);
+	if (nurot == NULL)
+		return (NULL);
+	for (i = 0; i <= len; i++)
+	{
+		x = 0;
+
+		if ((rot[i] >= 65 && rot[i] <= 90) || (rot[i] >= 97 && rot[i] <= 122))
+		{
+			while (rot[i] != j[x])
+			{
+				x++;
+			}
+			nurot[i] = z[x];
+		}
+		else
+			nurot[i] = rot[i];
+	}
+
+return (nurot);
+}

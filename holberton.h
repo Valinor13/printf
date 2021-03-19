@@ -22,6 +22,10 @@ typedef struct specPrint
 	char *(*specFunc)(va_list);
 } spec_t;
 
+char *printr(va_list r);
+
+char *printR(va_list R);
+
 /** Edge case put function for double percent sign input */
 char *printPerc(va_list perc);
 
