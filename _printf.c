@@ -69,7 +69,7 @@ int _printf(const char *format, ...)
 		BUFF[flowchk] = *format;
 		count++, flowchk++, format++;
 	}
-	flowchecky(f, BUFF);
+	write(1, BUFF, flowchk);
 	free(BUFF);
 	va_end(data_list);
 	return (count);
