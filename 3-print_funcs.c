@@ -42,6 +42,7 @@ char *printS(va_list S)
 			free(hex_str);
 		}
 	}
+	str[i] = 00;
 	return (str);
 
 }
