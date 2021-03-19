@@ -8,19 +8,18 @@
  */
 int _printf(const char *format, ...)
 {
-	int x, flowchk, count, *f = &flowchk;
+	int x, flowchk = 0, count = 0, *f = &flowchk;
 	va_list data_list;
 	char *tmp_buf, *BUFF;
 
-	count = flowchk = 0; /** Buffer overflow prevention measure */
 	if (format == NULL) /** Is there a string? */
 		return (-1);
 	va_start(data_list, format);
 	if (data_list == NULL) /* Are there arguments */
 		return (0);
 	BUFF = malloc(1024);
-	if (BUFF == NULL) /* Did we successfully create our buffer? */
-		return (-1);
+	if (BUFF == NULL)
+		return (-1);/* Did we successfully create our buffer? */
 	while (*format != '\0')
 	{
 		if (*format == '%' && *(format + 1) != '\0') /* Check for format specifier */
@@ -28,25 +27,51 @@ int _printf(const char *format, ...)
 			format++;
 			while (*format == 32)
 				format++; /* Move through any spaces after % */
-			if (*format == '\0')
+			if (*format == '\0') /* Avoid seg fault */
 			{
 				BUFF[flowchk] = '%';
 				break;
 			}
 			tmp_buf = (*scan_array(format))(data_list); /*Fill tmp*/
-			for (x = 0; tmp_buf[x] != '\0' && tmp_buf != NULL; x++, count++, flowchk++)
+			if (tmp_buf == NULL)
 			{
-			flowchecky(f, BUFF), BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
+				format--; /* Return to '%' */
+				if (flowchk >= 1024)
+					flowchecky(f, BUFF);
+				BUFF[flowchk] = *(format); /* Prrint '%' */
+				flowchk++, format++, count++;
+				if (flowchk >= 1024)
+					flowchecky(f, BUFF);
+				BUFF[flowchk] = *(format); /* Print invalid specifier */
+				flowchk++, count++;
 			}
-			free(tmp_buf);
-			if (*(format + 1) == '\0')
+			else
+			{
+				for (x = 0; tmp_buf[x] != '\0'; x++, count++, flowchk++)
+				{
+					if (flowchk >= 1024)
+						flowchecky(f, BUFF);
+					BUFF[flowchk] = tmp_buf[x]; /** Strcpy */
+				}
+				free(tmp_buf);
+			}
+			if (*(format + 1) == '%' /* Two specifiers in a row */)
+			{
+				format++;
+				continue;
+			}
+			else if (*(format + 1) == 00) /* Avoid seg fault */
 				break;
 			format++;
 		}
-		flowchecky(f, BUFF);
-		BUFF[flowchk] = *format, count++, flowchk++, format++;
+		if (flowchk >= 1024)
+			flowchecky(f, BUFF);
+		BUFF[flowchk] = *format; /* Printing base string */
+		count++, flowchk++, format++;
 	}
-	write(1, BUFF, flowchk), free(BUFF), va_end(data_list);
+	write(1, BUFF, flowchk);
+	free(BUFF);
+	va_end(data_list);
 	return (count);
 }
 
@@ -58,18 +83,11 @@ int _printf(const char *format, ...)
  */
 char *flowchecky(int *f, char *BUFF)
 {
-	if (*f >= 1024)
-	{
-		write(1, BUFF, *f);
-		*f = 0;
-		free(BUFF);
-		BUFF = malloc(1024);
-		return (BUFF);
-	}
-	else
-	{
-		return (BUFF);
-	}
+	write(1, BUFF, *f);
+	*f = 0;
+	free(BUFF);
+	BUFF = malloc(1024);
+	return (BUFF);
 }
 
 /**
@@ -88,8 +106,8 @@ char *(*scan_array(const char *format))(va_list)
 	spec_t specSelect[] = {
 	{"%", printPerc}, {"c", printc}, {"s", prints}, {"d", printint},
 	{"i", printint}, {"b", printb}, {"u", printu}, {"o", printo}, {"x", printx},
-	{"X", printX}, {"S", printS}, {"p", printp}, {NULL, NULL}};
-
+	{"X", printX}, {"S", printS}, {"p", printp},
+	{"r", printr}, {"R", printR}, {NULL, NULL}};
 
 	/* Scan array for function pointer which corresponds to format specifier */
 	for (i = 0; specSelect[i].spec != NULL; i++)
